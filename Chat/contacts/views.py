@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from .api.serializers import ContactsSerializer, Contacts
+from .api.serializers import ContactsSerializer, Contacts, User
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
@@ -28,6 +28,19 @@ class ContactsViewSet(ModelViewSet):
             return Response(serializer.data)
         else:
             return Response(status=404)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            user = request.user.id
+            user2 = request.data["user_two"]
+            contact, _ = Contacts.objects.get_or_create(user_one_id=user, user_two_id=user2)
+            serializer = ContactsSerializer(contact)
+            return Response(serializer.data)
+        except:
+            return Response({
+                "success": False,
+                "message": "Verify user ids"
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, *args, **kwargs):
         try:
