@@ -4,6 +4,11 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView,
 from .models import Message
 from .api.serializers import MessageSerializer
 
+from django.shortcuts import render
+
+def home(request):
+    return render(request, "home.html")
+
 
 # Create your views here.
 # Lista todos los elementos de mensajes
