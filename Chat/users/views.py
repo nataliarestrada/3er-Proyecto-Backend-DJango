@@ -1,7 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from json import loads
+from django.db import IntegrityError
+User = get_user_model()
 
 
 @api_view(['POST'])
@@ -15,10 +17,31 @@ def login_view(request):
 
         return Response({
             "success": True,
-            "user": user
+            "user": user.username
         })
 
     return Response({
         "success": False,
         "message": "Incorrect credentials"
     })
+
+
+@api_view(['POST'])
+def signup_view(request):
+    try:
+        data = loads(request.body)
+        user = User.objects.create_user(email=data['email'], password=data['password'], username=data['username'])
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
+        user.save()
+
+        login(request._request, user)
+        return Response({
+            "success": True,
+            "user": user.username
+        })
+    except IntegrityError:
+        return Response({
+            "success": False,
+            "message": "Verify your data"
+        })

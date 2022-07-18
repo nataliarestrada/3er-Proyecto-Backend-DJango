@@ -6,7 +6,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 # Create your views here.
-
+# from django.conf import settings
+# import redis
+# r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 
 class ContactsViewSet(ModelViewSet):
     serializer_class = ContactsSerializer

@@ -1,22 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
 </head>
 <body>
+    <form id="login">
+        <input type="email" name="email">
+        <input type="password" name="password" id="">
+        <button>Iniciar sesión</button>
+    </form>
+
     <div id="messages"></div>
-    <form action="" method="post">
+    <form id="send_form">
         <input type="text" name="message" placeholder="Message...">
         <button>Send</button>
     </form>
 
     <script>
-        const url = 'ws://'+window.location.host+'/ws/chat/1'
+        const sendForm = document.getElementById("send_form")
+        const loginForm = document.getElementById("login")
+        const url = 'ws://'+window.location.host+'/ws/chat/4'
         const chatWebSocket = new WebSocket(url)
+
+        chatWebSocket.onmessage = function (e){
+            alert("Nuevo mensaje!!")
+            const data = JSON.parse(e.data)
+            if(data.type==="send_message"){
+                console.log(data)
+            }
+        }
+
+        chatWebSocket.onclose = function (error){
+            console.log(error)
+            console.log("Connection lost unexpectedly")
+        }
+
+        sendForm.onsubmit = function (event){
+            event.preventDefault()
+            const message = event.target.message.value
+
+            if(message){
+                chatWebSocket.send(JSON.stringify({message,action: "send_message"}))
+                event.target.message.value = ""
+            }
+        }
+
+        loginForm.onsubmit = function (event){
+            event.preventDefault()
+
+            const email = event.target.email.value
+            const password = event.target.password.value
+
+            fetch("/api/auth/login/",{
+                method:"POST",
+                body: JSON.stringify({
+                    email,
+                    password
+                }),
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
+                .then(response=>response.json())
+                .then(data=>{
+                    console.log(data)
+                })
+        }
     </script>
-    
 </body>
 </html>
