@@ -1,10 +1,13 @@
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, get_user_model, logout
 from json import loads
 from django.db import IntegrityError
 User = get_user_model()
 
+def home(request):
+    return render(request, "home.html")
 
 @api_view(['POST'])
 def login_view(request):
@@ -14,6 +17,7 @@ def login_view(request):
     if user is not None:
         if user.is_active:
             login(request._request,user)
+            
 
         return Response({
             "success": True,
@@ -24,7 +28,10 @@ def login_view(request):
         "success": False,
         "message": "Incorrect credentials"
     })
-
+    
+def logout_view(request):
+    if request.user.is_authenticated:
+        logout(request)
 
 @api_view(['POST'])
 def signup_view(request):

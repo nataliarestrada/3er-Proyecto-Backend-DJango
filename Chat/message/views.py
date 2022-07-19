@@ -1,14 +1,24 @@
 # CRUD
 # retrieve, create, update, destroy
+from xml.etree.ElementTree import tostring
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from .models import Message
+from django.contrib.auth import get_user_model
 from .api.serializers import MessageSerializer
 
 from django.shortcuts import render
+User = get_user_model()
 
-def home(request):
-    return render(request, "home.html")
-
+def conversation(request):
+    msj = Message.objects.filter(idChat=4)
+    # usuario = request.user.id
+    user=request.user
+    # print("Hola  "+user.username)
+    # print(usuario)
+    return render(request, "conversation.html",{
+        'user': user,
+        'conversation': msj 
+    })
 
 # Create your views here.
 # Lista todos los elementos de mensajes

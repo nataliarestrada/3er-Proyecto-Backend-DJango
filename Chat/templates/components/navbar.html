@@ -1,0 +1,35 @@
+{% load static %}
+
+<nav class="navbar navbar-light bg-dark">
+    <!-- <div class="container d-grid gap-2 d-md-flex justify-content-md-end"> -->
+    <div class="container gap-2 d-md-flex justify-content-md-between">
+        {% if user.is_authenticated %}
+            <div class="d-md-flex">
+                <img src="{% static 'img/chat_logo.png' %}" style="width: 40px;" class="" alt="">
+                <a class="nav-link link-light link-hover-warning " href="#">My Perfil</a>
+                <a class="nav-link link-light link-hover-warning " href="#">Social</a>
+                <a class="nav-link link-light link-hover-warning " href="#">My Chats</a>
+            </div>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active bg-warning text-dark" aria-current="page" href="/api/auth/logout/">LogOut</a>
+                </li>
+            </ul>
+        {% else %}
+            
+            <div class="d-md-flex">
+                <img src="{% static 'img/chat_logo.png' %}" style="width: 40px;" class="" alt="">
+                <a class="nav-link link-light link-hover-warning " href="/">Home</a>
+            </div>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="btn btn-outline-light me-md-2" href="#">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active bg-warning text-dark" aria-current="page" href="/">Login</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+
+</nav>

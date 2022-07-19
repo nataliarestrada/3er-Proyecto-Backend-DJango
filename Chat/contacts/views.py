@@ -4,11 +4,17 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 # Create your views here.
 # from django.conf import settings
 # import redis
 # r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+
+def mychats(request):
+    chats = Contacts.objects.filter(user_one=request.user.id)
+    return render(request, "mychats.html",{
+        'mychats': chats
+    })
 
 class ContactsViewSet(ModelViewSet):
     serializer_class = ContactsSerializer

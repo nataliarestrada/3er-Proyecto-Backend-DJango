@@ -1,0 +1,52 @@
+a.nav--link {
+    color: gray;
+    font-size: 18px;
+    padding: 0;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #e84118;
+    padding: 2px;
+    flex: none;
+}
+
+input:focus {
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+.card-text {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+.chat{
+    background-image: url(../img/fondo_chat.png);
+    background-position: center center;
+    background-size: auto 100%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+/* .home{
+    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.699) 0%, rgba(0, 0, 0, 0.692) 100%), url(../img/fondo1.jpg);
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position : absolute;
+    width : 100%;
+    min-height: 100vh;
+} */
+body {
+    
+    width: 100%;
+    min-height: 100vh;
+    background-image: linear-gradient(120deg, rgba(73, 73, 73, 0.699) 0%, rgba(0, 0, 0, 0.692) 100%), url(../img/fondo1.jpg);
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
