@@ -28,4 +28,6 @@ urlpatterns = [
     path('', home),
     path('mychats/', mychats),
     path('conversation/',conversation)
+    #
+    #/<int:idProduct>
 ]

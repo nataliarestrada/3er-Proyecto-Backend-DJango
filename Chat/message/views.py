@@ -11,10 +11,7 @@ User = get_user_model()
 
 def conversation(request):
     msj = Message.objects.filter(idChat=4)
-    # usuario = request.user.id
     user=request.user
-    # print("Hola  "+user.username)
-    # print(usuario)
     return render(request, "conversation.html",{
         'user': user,
         'conversation': msj 

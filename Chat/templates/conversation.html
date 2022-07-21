@@ -31,7 +31,7 @@
             <div class="card-body p-4 chat" style="height: 500px; overflow: auto;" id="messages">
             {% for msj in conversation %}
         
-                {% if user.is_authenticated %}
+                {% if user != msj.author %}
                     
                     <div class="d-flex align-items-baseline mb-4">
                         <div id="user" class="position-relative avatar" style="width:50px; height: 50px; border-radius: 50%; border: 2px solid #212529; padding: 2px">

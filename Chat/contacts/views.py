@@ -9,10 +9,15 @@ from django.shortcuts import get_object_or_404, render
 # from django.conf import settings
 # import redis
 # r = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def mychats(request):
-    chats = Contacts.objects.filter(user_one=request.user.id)
+    query = 'SELECT * FROM contacts_contacts WHERE user_one_id='+ str(request.user.id) +' OR user_two_id=' + str(request.user.id)
+    chats = Contacts.objects.raw(query)
+    user=request.user
     return render(request, "mychats.html",{
+        'user': user,
         'mychats': chats
     })
 
